@@ -1,0 +1,28 @@
+<h1 class='animated fadeIn fast'>{{heroe.nombre | uppercase}}<small>({{heroe.aparicion | date:'y'}})</small></h1>
+<hr/>
+
+<div class='row animated fadeIn'>
+    <div class='col-md-4'>
+        <img src='{{heroe.img}}' class='img-fluid' [alt]='heroe.nombre' />
+        <br/>
+        <a class='btn btn-outline-danger btn-block' [routerLink]="['/heroes']">Return</a>
+    </div>
+
+    <div class='col-md-8'>
+        <h3>{{heroe.nombre}}</h3>
+        <hr/>
+        <p>
+            {{heroe.bio}}
+        </p>
+        <!-- Solución propia, no usa directiva pero es más extensible
+        <div>
+            <img style='width:250px' src='{{"assets/img/" + heroe.casa + ".png"}}' class='img-fluid' [alt]='heroe.name' />
+        </div>
+        -->
+        <!-- Solución del curso, usa directiva *ngIf, pero es poco extensible-->
+        <div>
+            <img *ngIf='heroe.casa == "DC"' class='img-logo img-fluid' src='assets/img/DC.png' [alt]='heroe.nombre' />
+            <img *ngIf='heroe.casa == "Marvel"' class='img-logo img-fluid' src='assets/img/Marvel.png' [alt]='heroe.nombre' />
+        </div>
+    </div>
+</div>

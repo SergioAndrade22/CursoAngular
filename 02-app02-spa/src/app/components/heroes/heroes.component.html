@@ -1,0 +1,7 @@
+<h1>Heroes <small>Marvel & DC</small></h1>
+
+<div class="card-columns">
+    <!--[heroe] <= property in child component; ="heroe" <= variable name from *ngFor directive  -->
+    <!--(heroeSeleccionado) <= event to be listening to, in this case a personalized one; ($ event) is udes to access the value emitted-->
+    <app-heroe-card (heroeSeleccionado)="verHeroe( $event )" [heroe]="heroe" [index]="i" *ngFor="let heroe of heroes; let i = index;"></app-heroe-card>
+</div>
