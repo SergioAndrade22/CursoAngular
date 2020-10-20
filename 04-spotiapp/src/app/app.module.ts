@@ -3,16 +3,18 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { CapitalizadoPipe } from './pipes/capitalizado.pipe';
-import { DomseguroPipe } from './pipes/domseguro.pipe';
-import { OcultadorPipe } from './pipes/ocultador.pipe';
+import { HomeComponent } from './components/home/home.component';
+import { SearchComponent } from './components/search/search.component';
+import { ArtistaComponent } from './components/artista/artista.component';
+import { NavbarComponent } from './components/shared/navbar/navbar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    CapitalizadoPipe,
-    DomseguroPipe,
-    OcultadorPipe
+    HomeComponent,
+    SearchComponent,
+    ArtistaComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
