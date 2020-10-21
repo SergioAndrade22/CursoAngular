@@ -1,0 +1,30 @@
+<div class="dropdown">
+    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          ngSwitch case control
+        </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <a class="dropdown-item" (click)="alerta='success'">Success</a>
+        <a class="dropdown-item" (click)="alerta='danger'">Danger</a>
+        <a class="dropdown-item" (click)="alerta='warning'">Warning</a>
+        <a class="dropdown-item" (click)="alerta='info'">Info</a>
+        <a class="dropdown-item" (click)="alerta='gj afsd'">Something else here</a>
+    </div>
+</div>
+
+<span [ngSwitch]="alerta">
+    <div *ngSwitchCase="'success'" class="alert alert-success" role="alert">
+        This is a success alert—check it out!
+    </div>
+    <div *ngSwitchCase="'danger'" class="alert alert-danger" role="alert">
+        This is a danger alert—check it out!
+    </div>
+    <div *ngSwitchCase="'warning'" class="alert alert-warning" role="alert">
+        This is a warning alert—check it out!
+    </div>
+    <div *ngSwitchCase="'info'" class="alert alert-info" role="alert">
+        This is a info alert—check it out!
+    </div>
+    <p *ngSwitchDefault>
+        Not a default alert!
+    </p>
+</span>

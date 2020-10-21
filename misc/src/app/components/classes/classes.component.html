@@ -1,0 +1,44 @@
+<div [ngClass]="alerta" class="alert" role="alert">
+    Usar los botones de abajo cambiará la clase de este componente!
+</div>
+
+<button type="button" class="btn btn-info myButton" (click)="alerta = 'alert-info'">
+        <i class="fa fa-info-circle"></i>
+</button>
+
+<button type="button" class="btn btn-danger myButton" (click)="alerta = 'alert-danger'">
+    <i class="fa fa-exclamation"></i>
+</button>
+
+<button type="button" class="btn btn-success myButton" (click)="alerta = 'alert-success'">
+    <i class="fa fa-check"></i>
+</button>
+
+<button type="button" class="btn btn-warning myButton" (click)="alerta = 'alert-warning'">
+    <i class="fa fa-exclamation-triangle"></i>
+</button>
+
+<hr/>
+
+<h5 [ngClass]="{ 'text-danger': props.danger, 'text-info': !props.danger}">
+    Hello World!
+</h5>
+
+<button [ngClass]="{'btn-outline-info': props.danger, 'btn-outline-danger': !props.danger}" type="button" class="btn btn-outline-info" (click)="props.danger = !props.danger"> 
+    Cambiar propiedad
+</button>
+
+<hr/>
+
+<div class="row">
+    <div class="col">
+        <p style="font-size: 25px;">Proceso Asíncrono:</p>
+    </div>
+    <div class="col">
+        <button type="button" name="button" class="btn btn-primary" (click)="execute()" [disabled]="loading">
+            <span *ngIf="!loading">Guardar cambios</span>
+            <span *ngIf="loading">Estamos trabajando</span>
+            <i [ngClass]="{'fa-save': !loading, 'fa-refresh fa-spin': loading}" class="fa" style="margin-left: 5px;"></i>
+        </button>
+    </div>
+</div>
