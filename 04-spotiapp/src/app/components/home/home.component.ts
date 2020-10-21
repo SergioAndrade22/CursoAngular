@@ -8,7 +8,6 @@ import { SpotifyService } from '../../services/spotify.service';
   ]
 })
 export class HomeComponent implements OnInit {
-  
   newReleases: any[] = [];
 
   loading: boolean;
