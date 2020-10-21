@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ValueSansProvider } from '@angular/core';
 import { Router } from '@angular/router';
 
 
@@ -14,7 +14,7 @@ export class TarjetasComponent{
 
   constructor(private router: Router) { }
 
-  verArtista(item:any){
+  verArtista(item: any): void{
     let artistaId;
     switch (item.type) {
       case 'artist':
@@ -22,6 +22,7 @@ export class TarjetasComponent{
         break;
       case 'album':
         artistaId = item.artists[0].id;
+        break;
       default:
         artistaId = undefined;
         break;
