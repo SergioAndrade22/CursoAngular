@@ -1,25 +1,7 @@
+<app-navbar></app-navbar>
+
 <div class="container main-container">
     <h1>Demos <small>angular</small></h1>
 
-    <h4>ngStyle</h4>
-    <app-ng-style></app-ng-style>
-    <hr/>
-
-    <h4>inlineCSS</h4>
-    <app-css></app-css>
-    <hr/>
-
-    <h4>ngClasses</h4>
-    <app-classes></app-classes>
-    <hr/>
-
-    <h4>Directivas personalizadas</h4>
-    <p [appResaltado]="'blue'">
-        Hola Mundo desde app.component
-    </p>
-    <hr/>
-
-    <h4>ngSwitch</h4>
-    <app-ng-switch></app-ng-switch>
-    <hr/>
+    <router-outlet></router-outlet>
 </div>
