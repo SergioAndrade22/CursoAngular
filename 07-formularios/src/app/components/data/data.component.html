@@ -1,1 +1,86 @@
-<p>data works!</p>
+<h4>Formularios <small>data</small></h4>
+<hr>
+<form [formGroup]="form" (ngSubmit)="guardarCambios()">
+    <div formGroupName="nombreCompleto">
+        <div class="form-group row">
+            <label class="col-2 col-form-label">Nombre</label>
+            <div class="col-8">
+                <input class="form-control" [ngClass]="{'is-invalid': form.get('nombreCompleto.nombre').invalid && form.get('nombreCompleto.nombre').touched}" type="text" placeholder="Nombre" formControlName="nombre">
+                <div class="invalid-feedback" *ngIf="form.get('nombreCompleto.nombre').errors?.required && form.get('nombreCompleto.nombre').touched">
+                    Este campo es requerido*
+                </div>
+                <div class="invalid-feedback" *ngIf="form.get('nombreCompleto.nombre').errors?.minlength && form.get('nombreCompleto.nombre').touched">
+                    El nombre debe tener al menos {{form.get('nombreCompleto.nombre').errors.minlength.requiredLength}} letras
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="col-2 col-form-label">Apellido</label>
+            <div class="col-8">
+                <input class="form-control" [ngClass]="{'is-invalid': form.get('nombreCompleto.apellido').invalid && form.get('nombreCompleto.apellido').touched}" type="text" placeholder="Apellido" formControlName="apellido">
+                <div class="invalid-feedback" *ngIf="form.get('nombreCompleto.apellido').errors?.required && form.get('nombreCompleto.apellido').touched">
+                    Este campo es requerido*
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label class="col-2 col-form-label">Correo</label>
+        <div class="col-md-8">
+            <input class="form-control" [ngClass]="{'is-invalid': form.get('mail').invalid && form.get('mail').touched}" type="email" placeholder="Correo electrónico" formControlName="mail">
+            <div class="invalid-feedback" *ngIf="form.get('mail').errors?.required && form.get('mail').touched">
+                Este campo es requerido*
+            </div>
+            <div class="invalid-feedback" *ngIf="form.get('mail').errors?.pattern && !form.get('mail').pristine">
+                Debe ingresar un mail válido
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label class="col-2 col-form-label">Hobbies</label>
+        <div class="col-md-8" formArrayName="hobbies">
+            <input [formControlName]="i" type="text" class="form-control" *ngFor="let hobby of form.get('hobbies').controls; let i = index">
+        </div>
+        <button type="button" class="btn btn-primary" (click)="agregarPasatiempo()">
+            Nuevo hobbie
+        </button>
+    </div>
+
+    <div class="form-group row">
+        <label class="col-2 col-form-label">Username</label>
+        <div class="col-md-8">
+            <input class="form-control" type="text" placeholder="Ingrese su username" formControlName="username">
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label class="col-2 col-form-label">Password</label>
+        <div class="col-md-8">
+            <input class="form-control" type="password" placeholder="Ingrese su password" formControlName="password1">
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label class="col-2 col-form-label">Repetir</label>
+        <div class="col-md-8">
+            <input class="form-control" type="password" placeholder="Repita su password" formControlName="password2">
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label class="col-2 col-form-label">&nbsp;</label>
+        <div class="input-group col-md-8">
+            <button type="submit" class="btn btn-outline-primary">Guardar</button>
+        </div>
+    </div>
+
+    {{form.valid}}
+    <br/> {{form.status}}
+</form>
+
+<pre>
+    {{user | json}}
+</pre>
