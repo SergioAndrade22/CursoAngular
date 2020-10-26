@@ -1,16 +1,76 @@
 import { Component, OnInit } from '@angular/core';
+import { HeroesService } from '../../services/heroes.service';
+import { Heroe } from '../../interfaces/heroe.interface';
 
 @Component({
   selector: 'app-heroes',
   templateUrl: './heroes.component.html',
-  styles: [
-  ]
+  styles: [`
+    button{
+      margin: 2px;
+    }
+    td {
+      border-left: 0.5px solid black;
+      border-right: 0.5px solid black;
+      border-bottom: 0.5px solid black;
+    }
+    th {
+      border-left: 0.5px solid black;
+      border-right: 0.5px solid black;
+    }
+    .ex30 {
+      width: 30%;
+    }
+    .ex10 {
+      width: 10%;
+    }
+  `]
 })
 export class HeroesComponent implements OnInit {
 
-  constructor() { }
+  heroes: Heroe[] = [];
+
+  loading: boolean = true;
+
+  show: boolean = false;
+
+  deleteKey: string = '';
+
+  constructor(private _heroesService: HeroesService) { 
+    this._heroesService.getHeroes()
+      .subscribe(response =>{
+        for( let key$ in response){
+          let heroe = this._heroesService.parseResponse(response[key$]);
+          heroe.key$ = key$;
+          this.heroes.push(heroe);
+        }
+        this.loading = false;
+      })
+  }
 
   ngOnInit(): void {
   }
 
+  showModal(): void {
+    this.show = true;
+  }
+
+  hideModal(): void {
+    this.show = false;
+  }
+
+  borrarHeroe(){
+    this._heroesService.borrarHeroe(this.deleteKey) // elimina de la DB en Firebase
+      .subscribe(response => {
+        if (response){
+          console.error(response);
+        } else{ // elimino localmente si se eliminó correctamente en la DB
+          for(let i = 0; i < this.heroes.length; i++){
+            if (this.heroes[i].key$ === this.deleteKey){
+              this.heroes.splice(i, 1);
+            }
+          }
+        }
+      })
+  }
 }
