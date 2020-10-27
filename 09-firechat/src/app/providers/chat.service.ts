@@ -3,6 +3,8 @@ import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/fire
 import { Observable } from 'rxjs';
 import { Mensaje } from '../interfaces/mensaje.interface';
 import { map } from 'rxjs/operators'
+import { AngularFireAuth } from '@angular/fire/auth';
+import { auth } from 'firebase/app';
 
 @Injectable({
   providedIn: 'root'
@@ -12,22 +14,63 @@ export class ChatService {
 
   public chats: Mensaje[] = [];
 
-  constructor(private afs: AngularFirestore) {}
+  public usuario: any = {}
+
+  constructor(private afs: AngularFirestore,
+              public auth: AngularFireAuth) {
+    this.auth.authState.subscribe( user => {
+      console.log('Estado del usuario: ', user);
+
+      if (!user){
+        return;
+      }
+
+      this.usuario.nombre = user.displayName;
+      this.usuario.uid = user.uid;
+
+    });
+  }
+
+  login( provider: string) {
+    switch(provider){
+      case 'google':
+        this.auth.signInWithPopup(new auth.GoogleAuthProvider());
+        break;
+      case 'twitter':
+        this.auth.signInWithPopup(new auth.TwitterAuthProvider());
+        break;
+      case 'github':
+        this.auth.signInWithPopup(new auth.GithubAuthProvider());
+        break;
+    }
+  }
+  logout() {
+    this.usuario = {};
+    this.auth.signOut();
+  }
 
   cargarMensajes() {
-    this.itemsCollection = this.afs.collection<Mensaje>('chats');
+    this.itemsCollection = this.afs.collection<Mensaje>('chats', ref => ref.orderBy('fecha', 'asc').limitToLast(5));
     return this.itemsCollection.valueChanges()
                 .pipe( map((mensajes: Mensaje[]) => {
-                  console.log(mensajes);
+
+                  /* Opción para limitToLast usando JS, lo guardo por si lo vuelve a usar más adelante
+                  this.chats = [];
+                  for (let mensaje of mensajes){
+                    this.chats.unshift(mensaje)
+                  }
+
+                  */
                   this.chats = mensajes;
                 }));
   }
 
   agregarMensaje(texto: string): Promise<firebase.firestore.DocumentReference<firebase.firestore.DocumentData>> {
     let mensaje: Mensaje = {
-      nombre : "demo",
+      nombre : this.usuario.nombre,
       mensaje : texto,
-      fecha: new Date().getTime()
+      fecha: new Date().getTime(),
+      uid: this.usuario.uid
     };
 
     return this.itemsCollection.add(mensaje);
