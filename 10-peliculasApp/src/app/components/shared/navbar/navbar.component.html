@@ -1,0 +1,20 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand">
+        <img src="../../../../assets/img/logo.svg" width="30" height="30" alt="">
+    </a>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active" routerLinkActive="active">
+                <a class="nav-link" [routerLink]="['/home']">Home</a>
+            </li>
+            <li class="nav-item" routerLinkActive="active">
+                <a class="nav-link" [routerLink]="['/search']">Link</a>
+            </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="Buscar Película" (keydown.enter)="search(searchInput.value)" aria-label="Search" #searchInput>
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit" (click)="search(searchInput.value)">Buscar</button>
+        </form>
+    </div>
+</nav>
