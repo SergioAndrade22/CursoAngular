@@ -17,13 +17,11 @@ export class SpotifyService {
   }
 
   getNewReleases(): any{
-    return this.getQuery('browse/new-releases?limit=20')
-            .pipe( map(data => data['albums'].items));
+    return this.getQuery('browse/new-releases?limit=20').pipe( map(data => data['albums'].items));
   }
 
   getArtistas(term: string): any{
-    return this.getQuery(`search?q=${term}&type=artist&limit=15`)
-            .pipe( map( data => data['artists'].items));
+    return this.getQuery(`search?q=${term}&type=artist&limit=15`).pipe( map( data => data['artists'].items));
   }
 
   getArtista(id: string): any{
@@ -31,7 +29,6 @@ export class SpotifyService {
   }
 
   getTopTracks(id: string): any{
-    return this.getQuery(`artists/${id}/top-tracks?market=us`)
-            .pipe( map(response => response['tracks']));
+    return this.getQuery(`artists/${id}/top-tracks?market=us`).pipe( map(response => response['tracks']));
   }
 }

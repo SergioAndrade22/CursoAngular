@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component} from '@angular/core';
 import { HeroesService } from '../../services/heroes.service';
 import { Heroe } from '../../interfaces/heroe.interface';
 
@@ -26,7 +26,7 @@ import { Heroe } from '../../interfaces/heroe.interface';
     }
   `]
 })
-export class HeroesComponent implements OnInit {
+export class HeroesComponent{
 
   heroes: Heroe[] = [];
 
@@ -47,8 +47,20 @@ export class HeroesComponent implements OnInit {
         this.loading = false;
       })
   }
-
-  ngOnInit(): void {
+  
+  borrarHeroe(): void{
+    this._heroesService.borrarHeroe(this.deleteKey) // elimina de la DB en Firebase
+    .subscribe(response => {
+      if (response){
+        console.error(response);
+      } else{ // elimino localmente si se eliminó correctamente en la DB, permite una tabla reactiva
+        for(let i = 0; i < this.heroes.length; i++){
+          if (this.heroes[i].key$ === this.deleteKey){
+            this.heroes.splice(i, 1);
+          }
+        }
+      }
+    })
   }
 
   showModal(): void {
@@ -57,20 +69,5 @@ export class HeroesComponent implements OnInit {
 
   hideModal(): void {
     this.show = false;
-  }
-
-  borrarHeroe(){
-    this._heroesService.borrarHeroe(this.deleteKey) // elimina de la DB en Firebase
-      .subscribe(response => {
-        if (response){
-          console.error(response);
-        } else{ // elimino localmente si se eliminó correctamente en la DB
-          for(let i = 0; i < this.heroes.length; i++){
-            if (this.heroes[i].key$ === this.deleteKey){
-              this.heroes.splice(i, 1);
-            }
-          }
-        }
-      })
   }
 }

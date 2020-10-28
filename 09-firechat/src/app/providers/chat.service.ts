@@ -19,15 +19,10 @@ export class ChatService {
   constructor(private afs: AngularFirestore,
               public auth: AngularFireAuth) {
     this.auth.authState.subscribe( user => {
-      console.log('Estado del usuario: ', user);
-
-      if (!user){
-        return;
+      if (user){
+        this.usuario.nombre = user.displayName;
+        this.usuario.uid = user.uid;
       }
-
-      this.usuario.nombre = user.displayName;
-      this.usuario.uid = user.uid;
-
     });
   }
 
@@ -44,6 +39,7 @@ export class ChatService {
         break;
     }
   }
+
   logout() {
     this.usuario = {};
     this.auth.signOut();
@@ -51,18 +47,8 @@ export class ChatService {
 
   cargarMensajes() {
     this.itemsCollection = this.afs.collection<Mensaje>('chats', ref => ref.orderBy('fecha', 'asc').limitToLast(5));
-    return this.itemsCollection.valueChanges()
-                .pipe( map((mensajes: Mensaje[]) => {
 
-                  /* Opción para limitToLast usando JS, lo guardo por si lo vuelve a usar más adelante
-                  this.chats = [];
-                  for (let mensaje of mensajes){
-                    this.chats.unshift(mensaje)
-                  }
-
-                  */
-                  this.chats = mensajes;
-                }));
+    return this.itemsCollection.valueChanges().pipe(map((mensajes: Mensaje[]) => this.chats = mensajes));
   }
 
   agregarMensaje(texto: string): Promise<firebase.firestore.DocumentReference<firebase.firestore.DocumentData>> {

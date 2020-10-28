@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component} from '@angular/core';
 
 import { AuthService } from '@auth0/auth0-angular';
 import { Observable } from 'rxjs';
@@ -9,12 +9,11 @@ import { Observable } from 'rxjs';
   styles: [
   ]
 })
-export class NavbarComponent implements OnInit {
+export class NavbarComponent{
+
+  returnUrl: string = 'http://localhost:4200';
 
   constructor(public auth0: AuthService) { 
-  }
-
-  ngOnInit(): void {
   }
 
   logIn(): void{
@@ -22,6 +21,6 @@ export class NavbarComponent implements OnInit {
   }
 
   logOut(): void{
-    this.auth0.logout({returnTo: 'http://localhost:4200'});
+    this.auth0.logout({returnTo: this.returnUrl});
   }
 }

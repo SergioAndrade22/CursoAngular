@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { AuthService } from '@auth0/auth0-angular';
 import { Observable } from 'rxjs';
 
@@ -8,12 +8,8 @@ import { Observable } from 'rxjs';
   styles: [
   ]
 })
-export class ProtegidaComponent implements OnInit {
+export class ProtegidaComponent{
 
   constructor(public auth: AuthService) { 
   }
-
-  ngOnInit(): void {
-  }
-
 }

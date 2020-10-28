@@ -15,8 +15,7 @@ export class ArtistaComponent {
 
   loading: boolean;
 
-  constructor(private route: ActivatedRoute,
-              private spotifyService: SpotifyService) {
+  constructor(private route: ActivatedRoute, private spotifyService: SpotifyService) {
     this.loading = true;
     const id = this.route.params['value'].id;
 
@@ -25,17 +24,11 @@ export class ArtistaComponent {
   }
 
   getArtista(id: string): void{
-    this.spotifyService.getArtista(id).subscribe( response => {
-      this.artista = response;
-      console.log(this.artista);
-    });
+    this.spotifyService.getArtista(id).subscribe( response => this.artista = response);
     this.loading = false;
   }
 
   getTopTracks(id: string): void{
-    this.spotifyService.getTopTracks(id).subscribe( response => {
-      this.topTracks = response;
-      console.log(this.topTracks[0]);
-    });
+    this.spotifyService.getTopTracks(id).subscribe( response => this.topTracks = response);
   }
 }

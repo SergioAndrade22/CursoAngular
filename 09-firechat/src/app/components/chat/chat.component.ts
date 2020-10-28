@@ -4,8 +4,7 @@ import { ChatService } from '../../providers/chat.service';
 @Component({
   selector: 'app-chat',
   templateUrl: './chat.component.html',
-  styles: [
-  ]
+  styles: []
 })
 export class ChatComponent implements OnInit{
 
@@ -24,17 +23,13 @@ export class ChatComponent implements OnInit{
   }
 
   enviarMensaje(){
-    console.log(this.mensaje);
-
-    if (this.mensaje.length === 0){
-      return;
+    if (this.mensaje.length !== 0){
+      this._chatService.agregarMensaje(this.mensaje)
+            .then(() => {
+              console.log("Mensaje Enviado");
+              this.mensaje = "";
+            })
+            .catch((err) => console.error("Error al enviar. \n", err));
     }
-
-    this._chatService.agregarMensaje(this.mensaje)
-          .then(() => {
-            console.log("Mensaje Enviado");
-            this.mensaje = "";
-          })
-          .catch((err) => console.error("Error al enviar. \n", err));
   }
 }

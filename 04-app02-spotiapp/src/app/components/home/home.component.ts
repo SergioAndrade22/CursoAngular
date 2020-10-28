@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { SpotifyService } from '../../services/spotify.service';
 
 @Component({
@@ -7,7 +7,7 @@ import { SpotifyService } from '../../services/spotify.service';
   styles: [
   ]
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent{
   newReleases: any[] = [];
 
   loading: boolean;
@@ -29,8 +29,4 @@ export class HomeComponent implements OnInit {
 
     this.loading = false;
   }
-
-  ngOnInit(): void {
-  }
-
 }

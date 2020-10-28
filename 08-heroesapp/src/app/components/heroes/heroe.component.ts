@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component} from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Heroe } from '../../interfaces/heroe.interface';
 import { HeroesService } from '../../services/heroes.service';
@@ -14,7 +14,7 @@ import { Router, ActivatedRoute } from '@angular/router';
     }
   `]
 })
-export class HeroeComponent implements OnInit {
+export class HeroeComponent{
   heroe: Heroe= {
     bio: '',
     nombre: '',
@@ -38,10 +38,7 @@ export class HeroeComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
-  }
-
-  guardar(){
+  guardar(): void{
     if (this.id === 'nuevo'){
       this._heroesService.nuevoHeroe(this.heroe)
             .subscribe( (response: Response) => {
@@ -57,7 +54,7 @@ export class HeroeComponent implements OnInit {
     }
   }
 
-  agregarNuevo(form: NgForm){
+  agregarNuevo(form: NgForm): void{
     this.router.navigate(['/heroe', 'nuevo']);
     form.reset();
   }

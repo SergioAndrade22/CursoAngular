@@ -10,9 +10,9 @@ export class SearchComponent implements OnInit{
   heroes:Heroe[];
   term:string;
 
-  constructor(private activatedRoute:ActivatedRoute,
-              private _heroesService:HeroesService,
-              private router:Router) { }
+  constructor(private activatedRoute:ActivatedRoute,private _heroesService:HeroesService,private router:Router) { 
+    
+  }
 
   ngOnInit(): void {
     this.term = this.activatedRoute.params['value']['heroe'];

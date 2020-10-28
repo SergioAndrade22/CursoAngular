@@ -2,68 +2,52 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Heroe } from '../interfaces/heroe.interface';
 import { map} from 'rxjs/operators'
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class HeroesService {
 
-  fireUrl:string = "https://heroesapp-8e301.firebaseio.com/heroes.json"
+  headers = {
+    headers: new HttpHeaders({
+    'Content-Type':'application/json'
+    })
+  };
+
+  fireUrl: string = "https://heroesapp-8e301.firebaseio.com/heroes.json";
   heroeUrl: string = "https://heroesapp-8e301.firebaseio.com/heroes";
 
   constructor(private http: HttpClient) { }
 
-  nuevoHeroe(heroe: Heroe){ //Usa el servicio POST de Firebase para insertar nuevos elementos
-    let body = JSON.stringify(heroe);
-    let headers = new HttpHeaders({
-      'Content-Type':'application/json'
-    });
+  getHeroe(key$: string): Observable<Response>{
+    let url = `${this.heroeUrl}/${ key$}.json`;
 
-    return this.http.post(this.fireUrl, body, { headers })
-              .pipe( map( (response: Response) => {
-                return response;
-              }));
+    return this.http.get(url, this.headers).pipe( map((response: Response) => response))
   }
 
-  actualizarHeroe(heroe: Heroe, key$: string){
+  nuevoHeroe(heroe: Heroe): Observable<Response>{ //Usa el servicio POST de Firebase para insertar nuevos elementos
     let body = JSON.stringify(heroe);
-    let headers = new HttpHeaders({
-      'Content-Type':'application/json'
-    });
+
+    return this.http.post(this.fireUrl, body, this.headers).pipe( map( (response: Response) => response));
+  }
+
+  actualizarHeroe(heroe: Heroe, key$: string): Observable<Response>{ //Usa el servicio PUT de Firebase para modificar un héroe existente
+    let body = JSON.stringify(heroe);
 
     let url = `${this.heroeUrl}/${ key$ }.json`;
 
-    return this.http.put( url, body, {headers})
-            .pipe( map((response: Response) => {
-              return response;
-            }));
+    return this.http.put( url, body, this.headers).pipe( map((response: Response) => response));
   }
 
-  getHeroe(key$: string){
-    let url = `${this.heroeUrl}/${ key$}.json`;
-    let headers = new HttpHeaders({
-      'Content-Type':'application/json'
-    });
-    return this.http.get(url, {headers})
-            .pipe( map((response: Response) => {
-              return response;
-            }))
-  }
-
-  getHeroes(){
-    return this.http.get(this.fireUrl)
-            .pipe( map((response: Response) => response));
-  }
-
-  borrarHeroe(key$: string){
-    let headers = new HttpHeaders({
-      'Content-Type':'application/json'
-    });
+  borrarHeroe(key$: string): Observable<Response>{
     let url = `${this.heroeUrl}/${key$}.json`;
-    return this.http.delete(url, {headers})
-            .pipe( map((response: Response)=>{
-              return response;
-            }));
+
+    return this.http.delete(url, this.headers).pipe( map((response: Response)=> response));
+  }
+
+  getHeroes(): Observable<Response>{
+    return this.http.get(this.fireUrl, this.headers).pipe( map((response: Response) => response));
   }
 
   parseResponse(response: Response): Heroe{
