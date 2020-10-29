@@ -49,7 +49,7 @@ export class TMDBService {
   }
 
   getMovieByTitle(term: string){
-    let url = `${this.urlBase}/search/movie?api_key=${this.apikey}&query=${term}`;
+    let url = `${this.urlBase}/search/movie?api_key=${this.apikey}&query=${term}&language=es`;
 
     return this.http.get(url).pipe( 
       map((response:Response) => response)

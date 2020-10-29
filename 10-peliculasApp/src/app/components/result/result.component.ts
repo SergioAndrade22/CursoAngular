@@ -6,8 +6,7 @@ import { Location } from "@angular/common";
 @Component({
   selector: 'app-result',
   templateUrl: './result.component.html',
-  styles: [
-  ]
+  styles: []
 })
 export class ResultComponent implements OnInit {
 
@@ -16,8 +15,10 @@ export class ResultComponent implements OnInit {
   }
 
   constructor(private route: ActivatedRoute, private _tmdbService: TMDBService, private location: Location) {
-    route.params.subscribe(data => _tmdbService.getMovieByTitle(data.movie).subscribe( response => this.movie = response['results'][0]));
-    console.log(this.movie);
+    route.params.subscribe(data => _tmdbService.getMovieByTitle(data.movie).subscribe( response =>{ 
+      this.movie = response['results'][0];
+      this.movie.release_date = new Date(this.movie.release_date).getFullYear();
+    }));
   }
 
   ngOnInit(): void {

@@ -1,13 +1,13 @@
 <div class="container h-100">
     <div class="d-flex justify-content-center h-100">
-        <div class="searchbar">
-            <input class="search_input" type="text" placeholder="Search..." (keyup)="search(busqueda.value)" #busqueda>
+        <div class="searchbar bg-success">
+            <input class="search_input bg-success" type="text" placeholder="Search..." (keyup)="search(busqueda.value)" #busqueda>
             <a class="search_icon" (click)="search(busqueda.value)"><i class="fas fa-search"></i></a>
         </div>
     </div>
 </div>
 
-<div class="alert alert-primary" role="alert" *ngIf="!termValidator(busqueda.value)">
+<div class="alert alert-primary" role="alert" *ngIf="!termValidator(busqueda.value) && movies.length === 0">
     Realice una búsqueda
 </div>
 

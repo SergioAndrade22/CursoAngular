@@ -10,7 +10,6 @@ import { Router, ActivatedRoute } from '@angular/router';
       margin-bottom: auto;
       margin-top: auto;
       height: 60px;
-      background-color: #08A6D2;
       border-radius: 30px;
       padding: 10px;
     }
