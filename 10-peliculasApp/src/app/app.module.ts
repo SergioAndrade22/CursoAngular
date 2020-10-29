@@ -12,6 +12,7 @@ import { ResultComponent } from './components/result/result.component';
 import { CardComponent } from './components/shared/card/card.component';
 import { APP_ROUTING } from './app.routes';
 import { NoimagePipe } from './pipes/noimage.pipe';
+import { CarouselComponent } from './components/home/carousel.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { NoimagePipe } from './pipes/noimage.pipe';
     SearchComponent,
     ResultComponent,
     CardComponent,
-    NoimagePipe
+    NoimagePipe,
+    CarouselComponent
   ],
   imports: [
     BrowserModule,

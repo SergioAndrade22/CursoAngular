@@ -1,1 +1,8 @@
-<p>result works!</p>
+<div class="container text-center">
+    <h3 style="color: white;">
+        {{movie.title}}
+        <button class="btn btn-outline-danger" (click)="goBack()">Regresar</button>
+    </h3>
+    <img [src]="movie.poster_path | noimage" />
+    <p style="color: white;">{{movie.overview}}</p>
+</div>

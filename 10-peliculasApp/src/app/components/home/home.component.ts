@@ -5,8 +5,8 @@ import { TMDBService } from '../../providers/tmdb.service';
   selector: 'app-home',
   templateUrl: './home.component.html',
   styles: [`
-    .carousel-inner{
-      background: lightgrey !important;
+    h1{
+      color: white;
     }
   `]
 })
@@ -16,16 +16,23 @@ export class HomeComponent implements OnInit {
     poster_path: ''
   }];
 
+  cartelera: any[] = [{
+    poster_path: ''
+  }];
+
+  kids: any[] = [{
+    poster_path: ''
+  }];
+
   constructor(private _tmdbService: TMDBService) { 
-    this._tmdbService.getPopulares().subscribe(response => {
-      this.populares = response['results'];
-    });
+    this._tmdbService.getPopulares().subscribe(response => this.populares = response['results']);
+
+    this._tmdbService.getKidsPopular().subscribe(response => this.kids = response['results']);
+
+    this._tmdbService.getMoviesOnTheatre().subscribe(response => this.cartelera = response['results']);
   }
 
   ngOnInit(): void {
   }
 
-  foo(s: any){
-    console.log(s)
-  }
 }

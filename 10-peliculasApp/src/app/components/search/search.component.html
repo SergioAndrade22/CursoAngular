@@ -1,5 +1,26 @@
+<div class="container h-100">
+    <div class="d-flex justify-content-center h-100">
+        <div class="searchbar">
+            <input class="search_input" type="text" placeholder="Search..." (keyup)="search(busqueda.value)" #busqueda>
+            <a class="search_icon" (click)="search(busqueda.value)"><i class="fas fa-search"></i></a>
+        </div>
+    </div>
+</div>
+
+<div class="alert alert-primary" role="alert" *ngIf="!termValidator(busqueda.value)">
+    Realice una búsqueda
+</div>
+
+<div class="alert alert-primary" role="alert" *ngIf="loading">
+    <i class="fas fa-spinner fa spin"></i> Cargando
+</div>
+
+<div class="alert alert-warning" role="alert" *ngIf="busqueda.value != '' && movies.length === 0 && !loading">
+    No se encontraron resultados para su búsqueda
+</div>
+
 <div class="card-columns">
-    <div class="card" *ngFor="let movie of movies">
+    <div class="card" *ngFor="let movie of movies" (click)="result(movie)">
         <img class="card-img-top" [src]="movie.poster_path | noimage" alt="">
         <div class="card-body">
             <h5 class="card-title">{{movie.title}}</h5>
