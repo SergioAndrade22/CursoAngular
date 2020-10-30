@@ -1,0 +1,4 @@
+$ ng build 
+	Doing this with no changes on the environment.ts generates a pre-prod build that still gives feedback on the console.
+$ ng build --prod
+	Doing this after changing environment.ts instruction "production" to true, generates a build ready to be deployed.
