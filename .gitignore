@@ -1,6 +1,7 @@
 .DS_STORE
 
 /dist/
+/.vscode
 /bazel-out
 /integration/bazel/bazel-*
 *.log
