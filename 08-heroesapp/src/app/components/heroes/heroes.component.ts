@@ -30,37 +30,37 @@ export class HeroesComponent{
 
   heroes: Heroe[] = [];
 
-  loading: boolean = true;
+  loading = true;
 
-  show: boolean = false;
+  show = false;
 
-  deleteKey: string = '';
+  deleteKey = '';
 
-  constructor(private _heroesService: HeroesService) { 
-    this._heroesService.getHeroes()
-      .subscribe(response =>{
-        for( let key$ in response){
-          let heroe = this._heroesService.parseResponse(response[key$]);
+  constructor(private heroesService: HeroesService) {
+    this.heroesService.getHeroes()
+      .subscribe(response => {
+        for (const key$ in response){
+          const heroe = this.heroesService.parseResponse(response[key$]);
           heroe.key$ = key$;
           this.heroes.push(heroe);
         }
         this.loading = false;
-      })
+      });
   }
-  
+
   borrarHeroe(): void{
-    this._heroesService.borrarHeroe(this.deleteKey) // elimina de la DB en Firebase
+    this.heroesService.borrarHeroe(this.deleteKey) // elimina de la DB en Firebase
     .subscribe(response => {
       if (response){
         console.error(response);
       } else{ // elimino localmente si se eliminó correctamente en la DB, permite una tabla reactiva
-        for(let i = 0; i < this.heroes.length; i++){
+        for (let i = 0; i < this.heroes.length; i++){
           if (this.heroes[i].key$ === this.deleteKey){
             this.heroes.splice(i, 1);
           }
         }
       }
-    })
+    });
   }
 
   showModal(): void {

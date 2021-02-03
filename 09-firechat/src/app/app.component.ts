@@ -9,6 +9,6 @@ import { ChatService } from './providers/chat.service';
 export class AppComponent {
   title = 'firechat';
 
-  constructor(public _chatService: ChatService){
+  constructor(public chatService: ChatService){
   }
 }

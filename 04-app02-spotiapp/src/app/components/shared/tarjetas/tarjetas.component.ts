@@ -15,7 +15,7 @@ export class TarjetasComponent{
   constructor(private router: Router) { }
 
   verArtista(item: any): void{
-    let artistaId;
+    let artistaId: number;
     switch (item.type) {
       case 'artist':
         artistaId = item.id;

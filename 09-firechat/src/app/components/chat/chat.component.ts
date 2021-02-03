@@ -8,28 +8,28 @@ import { ChatService } from '../../providers/chat.service';
 })
 export class ChatComponent implements OnInit{
 
-  mensaje:string = '';
+  mensaje = '';
   elem: any;
 
-  constructor(public _chatService: ChatService) { 
-    this._chatService.cargarMensajes()
+  constructor(public chatService: ChatService) {
+    this.chatService.cargarMensajes()
       .subscribe( () => {
         setTimeout(this.elem.scrollTop = this.elem.scrollHeight, 20);
       });
   }
 
-  ngOnInit() {
+  ngOnInit(): void  {
     this.elem = document.getElementById('app-mensajes');
   }
 
-  enviarMensaje(){
+  enviarMensaje(): void {
     if (this.mensaje.length !== 0){
-      this._chatService.agregarMensaje(this.mensaje)
+      this.chatService.agregarMensaje(this.mensaje)
             .then(() => {
-              console.log("Mensaje Enviado");
-              this.mensaje = "";
+              console.log('Mensaje Enviado');
+              this.mensaje = '';
             })
-            .catch((err) => console.error("Error al enviar. \n", err));
+            .catch((err) => console.error('Error al enviar. \n', err));
     }
   }
 }

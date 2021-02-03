@@ -53,9 +53,9 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class SearchComponent implements OnInit {
 
   movies: any[] = [];
-  loading: boolean = false;
+  loading = false;
 
-  constructor(private _tmdbService: TMDBService, private router: Router, private route: ActivatedRoute) { 
+  constructor(private tmdbService: TMDBService, private router: Router, private route: ActivatedRoute) {
     let term: string;
     this.route.params.subscribe( data => term = data.term);
     this.search(term);
@@ -67,7 +67,7 @@ export class SearchComponent implements OnInit {
   search(term: string): void{
     this.loading = true;
     if (this.termValidator(term)){
-      this._tmdbService.getMovieByTitle(term).subscribe(response => this.movies = response['results']);
+      this.tmdbService.getMovieByTitle(term).subscribe(response => this.movies = response['results']);
     }
     else{
       this.movies = [];
@@ -75,11 +75,11 @@ export class SearchComponent implements OnInit {
     this.loading = false;
   }
 
-  termValidator(term: string){
-    return term != undefined && term != "" && term != " ";
+  termValidator(term: string): boolean {
+    return term !== undefined && term !== '' && term !== ' ';
   }
 
-  result(movie: any){
+  result(movie: any): void {
     this.router.navigate(['/result', movie.original_title]);
   }
 }

@@ -24,12 +24,12 @@ export class HomeComponent implements OnInit {
     poster_path: ''
   }];
 
-  constructor(private _tmdbService: TMDBService) { 
-    this._tmdbService.getPopulares().subscribe(response => this.populares = response['results']);
+  constructor(private tmdbService: TMDBService) {
+    this.tmdbService.getPopulares().subscribe(response => this.populares = response['results']);
 
-    this._tmdbService.getKidsPopular().subscribe(response => this.kids = response['results']);
+    this.tmdbService.getKidsPopular().subscribe(response => this.kids = response['results']);
 
-    this._tmdbService.getMoviesOnTheatre().subscribe(response => this.cartelera = response['results']);
+    this.tmdbService.getMoviesOnTheatre().subscribe(response => this.cartelera = response['results']);
   }
 
   ngOnInit(): void {

@@ -1,6 +1,6 @@
-import { Component, OnInit, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
-import { FormBuilder, FormGroup } from "@angular/forms";
+import { Component, Inject } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-editar-marcador',
@@ -8,21 +8,20 @@ import { FormBuilder, FormGroup } from "@angular/forms";
   styles: [
   ]
 })
-export class EditarMarcadorComponent implements OnInit {
+export class EditarMarcadorComponent {
 
   form: FormGroup;
 
-  constructor(public dialogRef: MatDialogRef<EditarMarcadorComponent>, @Inject(MAT_DIALOG_DATA) public data: any, public formBuilder: FormBuilder) { 
+  constructor(public dialogRef: MatDialogRef<EditarMarcadorComponent>,
+              @Inject(MAT_DIALOG_DATA) public data: any,
+              public formBuilder: FormBuilder) {
     this.form = formBuilder.group({
-      'titulo': data.titulo,
-      'desc': data.desc
-    })
+      titulo: data.titulo,
+      desc: data.desc
+    });
   }
 
-  ngOnInit(): void {
-  }
-
-  guardarCambios(){
+  guardarCambios(): void {
     this.dialogRef.close(this.form.value);
   }
 

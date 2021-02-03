@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Marker } from '../clases/marcador.class';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog'
+import { MatDialog } from '@angular/material/dialog';
 import { EditarMarcadorComponent } from './editar-marcador.component';
 
 @Component({
@@ -13,8 +13,8 @@ export class MapaComponent implements OnInit {
 
   marcadores: Marker[] = [];
 
-  lat: number = 51.678418;
-  long: number = 7.809007;
+  lat = 51.678418;
+  long = 7.809007;
 
   constructor(private snackBar: MatSnackBar, private dialog: MatDialog) {
     if (localStorage.getItem('marcadores')){
@@ -25,8 +25,8 @@ export class MapaComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  agregarMarcador($event){
-    const coords: { lat: number, long:number } =  $event.coords;
+  agregarMarcador($event): void {
+    const coords: { lat: number, long: number } =  $event.coords;
 
     const mark = new Marker(coords.lat, coords.long);
 
@@ -38,7 +38,7 @@ export class MapaComponent implements OnInit {
 
   }
 
-  borrar(index: number){
+  borrar(index: number): void {
     this.marcadores.splice(index, 1);
 
     this.guardarStorage();
@@ -46,25 +46,23 @@ export class MapaComponent implements OnInit {
     this.snackBar.open('Marcador eliminado', 'Cerrar', { duration: 2000 });
   }
 
-  editarMarcador(marcador: Marker){
+  editarMarcador(marcador: Marker): void {
     const dialogRef = this.dialog.open(EditarMarcadorComponent, {
       width: '250px',
       data: {titulo: marcador.titulo, desc: marcador.desc}
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if (result != undefined){
+      if (result !== undefined){
         marcador.titulo = result.titulo;
-        marcador.desc = result.desc
+        marcador.desc = result.desc;
         this.guardarStorage();
-        this.snackBar.open('Información actualizada', 'Cerrar', { duration: 2000 })
+        this.snackBar.open('Información actualizada', 'Cerrar', { duration: 2000 });
       }
     });
   }
 
-  guardarStorage(){
+  guardarStorage(): void {
     localStorage.setItem('marcadores', JSON.stringify(this.marcadores));
   }
-
-
 }

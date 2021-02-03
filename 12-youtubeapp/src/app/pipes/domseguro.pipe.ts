@@ -5,8 +5,8 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
   name: 'domseguro'
 })
 export class DomseguroPipe implements PipeTransform {
-  
-  url: string = 'https://www.youtube.com/embed/';
+
+  url = 'https://www.youtube.com/embed/';
 
   constructor(private domSanitizer: DomSanitizer){}
 

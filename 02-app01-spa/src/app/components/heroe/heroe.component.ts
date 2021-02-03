@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router'
+import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Heroe, HeroesService } from '../../services/heroes.service';
 
@@ -11,12 +11,12 @@ import { Heroe, HeroesService } from '../../services/heroes.service';
 })
 
 export class HeroeComponent{
-  loader:Subscription;
+  loader: Subscription;
 
-  heroe:Heroe;
+  heroe: Heroe;
 
-  constructor(private activatedRoute: ActivatedRoute,private _heroesService: HeroesService) { 
-    this.heroe = _heroesService.getHeroeByName(this.activatedRoute.params['value']['name']);
+  constructor(private activatedRoute: ActivatedRoute, private heroesService: HeroesService) {
+    this.heroe = this.heroesService.getHeroeByName(this.activatedRoute.params['value']['name']);
   }
 
 }

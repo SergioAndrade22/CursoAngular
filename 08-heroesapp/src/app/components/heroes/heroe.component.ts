@@ -15,38 +15,38 @@ import { Router, ActivatedRoute } from '@angular/router';
   `]
 })
 export class HeroeComponent{
-  heroe: Heroe= {
+  heroe: Heroe = {
     bio: '',
     nombre: '',
     casa: ''
-  }
+  };
 
-  nuevo: boolean = false;
-  id: string = '';
+  nuevo = false;
+  id = '';
 
-  constructor(private _heroesService: HeroesService,
+  constructor(private heroesService: HeroesService,
               private router: Router,
               private route: ActivatedRoute) {
     this.route.params.subscribe(params => {
-        this.id = params.id
+        this.id = params.id;
         if (this.id !== 'nuevo'){
-          this._heroesService.getHeroe(this.id)
+          this.heroesService.getHeroe(this.id)
             .subscribe((response: Response) => {
-              this.heroe = this._heroesService.parseResponse(response);
-            })
+              this.heroe = this.heroesService.parseResponse(response);
+            });
         }
     });
   }
 
   guardar(): void{
     if (this.id === 'nuevo'){
-      this._heroesService.nuevoHeroe(this.heroe)
+      this.heroesService.nuevoHeroe(this.heroe)
             .subscribe( (response: Response) => {
               this.router.navigate(['/heroe', response['name']]);
             },
             error => console.error(error));
     } else{
-      this._heroesService.actualizarHeroe(this.heroe, this.id)
+      this.heroesService.actualizarHeroe(this.heroe, this.id)
             .subscribe( (response: Response) => {
               this.router.navigate(['/heroe', this.id]);
             },

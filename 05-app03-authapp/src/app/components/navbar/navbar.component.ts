@@ -11,9 +11,9 @@ import { Observable } from 'rxjs';
 })
 export class NavbarComponent{
 
-  returnUrl: string = 'http://localhost:4200';
+  returnUrl = 'http://localhost:4200';
 
-  constructor(public auth0: AuthService) { 
+  constructor(public auth0: AuthService) {
   }
 
   logIn(): void{

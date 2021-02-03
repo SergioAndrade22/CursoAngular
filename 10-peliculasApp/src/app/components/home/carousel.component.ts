@@ -18,13 +18,12 @@ export class CarouselComponent implements OnInit {
   @Input()
   id: string;
 
-  constructor() {
-  }
-  
+  constructor() {}
+
   ngOnInit(): void {
   }
 
-  showID(){
+  showID(): void {
     console.log(this.id);
   }
 }

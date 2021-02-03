@@ -1,58 +1,59 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from "@angular/common/http";
-import { map } from "rxjs/operators";
+import { HttpClient } from '@angular/common/http';
+import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TMDBService {
 
-  private apikey: string = '1d39ef4ae116280b9df95e57803cca06';
-  private urlBase: string = 'https://api.themoviedb.org/3';
+  private apikey = '1d39ef4ae116280b9df95e57803cca06';
+  private urlBase = 'https://api.themoviedb.org/3';
 
-  constructor(private http: HttpClient) { 
+  constructor(private http: HttpClient) {
 
   }
 
-  getPopulares(){
-    let url = `${this.urlBase}/discover/movie?sort_by=popularity.desc&api_key=${this.apikey}&language=es`;
-    
-    return this.http.get(url).pipe( 
-      map((response:Response) => response)
-    );
-  }
-
-  getKidsPopular(){
-    let url = `${this.urlBase}/discover/movie?certification_country=US&certification.lte=G&certification.gte=G&sort_by=popularity.desc&api_key=${this.apikey}&language=es`;
+  getPopulares(): Observable<Response> {
+    const url = `${this.urlBase}/discover/movie?sort_by=popularity.desc&api_key=${this.apikey}&language=es`;
 
     return this.http.get(url).pipe(
-      map((response:Response) => response)
+      map((response: Response) => response)
     );
   }
 
-  getMoviesOnTheatre(){
-    let now: Date = new Date();
+  getKidsPopular(): Observable<Response> {
+    const url = `${this.urlBase}/discover/movie?certification_country=US&certification.lte=G&certification.gte=G&sort_by=popularity.desc&api_key=${this.apikey}&language=es`;
 
-    let prevWeek: Date = new Date();
+    return this.http.get(url).pipe(
+      map((response: Response) => response)
+    );
+  }
+
+  getMoviesOnTheatre(): Observable<Response> {
+    const now: Date = new Date();
+
+    const prevWeek: Date = new Date();
 
     prevWeek.setDate(now.getDate() - 7);
 
-    let upperDate: string = `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()}`;
+    const upperDate = `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()}`;
 
-    let lowerDate: string = `${prevWeek.getFullYear()}-${prevWeek.getMonth() + 1}-${prevWeek.getDate()}`;
+    const lowerDate = `${prevWeek.getFullYear()}-${prevWeek.getMonth() + 1}-${prevWeek.getDate()}`;
 
-    let url = `${this.urlBase}/discover/movie?primary_release_date.gte=${lowerDate}&primary_release_date.lte=${upperDate}&api_key=${this.apikey}&language=es`;
+    const url = `${this.urlBase}/discover/movie?primary_release_date.gte=${lowerDate}&primary_release_date.lte=${upperDate}&api_key=${this.apikey}&language=es`;
 
-    return this.http.get(url).pipe( 
-      map((response:Response) => response)
+    return this.http.get(url).pipe(
+      map((response: Response) => response)
     );
   }
 
-  getMovieByTitle(term: string){
-    let url = `${this.urlBase}/search/movie?api_key=${this.apikey}&query=${term}&language=es`;
+  getMovieByTitle(term: string): Observable<Response> {
+    const url = `${this.urlBase}/search/movie?api_key=${this.apikey}&query=${term}&language=es`;
 
-    return this.http.get(url).pipe( 
-      map((response:Response) => response)
+    return this.http.get(url).pipe(
+      map((response: Response) => response)
     );
   }
 }

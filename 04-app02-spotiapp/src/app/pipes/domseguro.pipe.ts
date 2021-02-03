@@ -5,7 +5,7 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
   name: 'domseguro'
 })
 export class DomseguroPipe implements PipeTransform {
-  
+
   url = 'https://open.spotify.com/embed/track/';
 
   constructor(private domSanitizer: DomSanitizer){}

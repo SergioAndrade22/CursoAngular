@@ -13,10 +13,10 @@ import { ChatService } from '../../providers/chat.service';
 })
 export class LoginComponent {
 
-  constructor(public _chatService: ChatService) { }
+  constructor(public chatService: ChatService) { }
 
   ingresar( provider: string): void {
-    this._chatService.login(provider);
+    this.chatService.login(provider);
   }
 
 }

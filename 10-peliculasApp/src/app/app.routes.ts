@@ -10,7 +10,7 @@ const ROUTES: Routes = [
     { path: 'search', component: SearchComponent},
     { path: 'search/:term', component: SearchComponent},
     { path: 'result/:movie', component: ResultComponent },
-    { path: '**', pathMatch: 'full', redirectTo:'home'}
+    { path: '**', pathMatch: 'full', redirectTo: 'home'}
 ];
 
 export const APP_ROUTING = RouterModule.forRoot(ROUTES);

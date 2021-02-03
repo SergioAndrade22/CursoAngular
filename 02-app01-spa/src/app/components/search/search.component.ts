@@ -7,19 +7,17 @@ import { ActivatedRoute, Router } from '@angular/router';
   templateUrl: './search.component.html'
 })
 export class SearchComponent implements OnInit{
-  heroes:Heroe[];
-  term:string;
+  heroes: Heroe[];
+  term: string;
 
-  constructor(private activatedRoute:ActivatedRoute,private _heroesService:HeroesService,private router:Router) { 
-    
-  }
+  constructor(private activatedRoute: ActivatedRoute, private heroesService: HeroesService, private router: Router) {}
 
   ngOnInit(): void {
     this.term = this.activatedRoute.params['value']['heroe'];
-    this.heroes = this._heroesService.buscarHeroes(this.term);
+    this.heroes = this.heroesService.buscarHeroes(this.term);
   }
 
-  public verHeroe(h:Heroe):void{
+  public verHeroe(h: Heroe): void {
     this.router.navigate(['/heroe', h.nombre]);
   }
 }

@@ -10,20 +10,20 @@ import { FirebaseService } from '../../services/firebase.service';
 })
 export class CargaComponent implements OnInit {
 
-  mouseHoverDrop: boolean = false;
+  mouseHoverDrop = false;
 
   archivos: FileItem[] = [];
 
-  constructor(public _fbs: FirebaseService) { }
+  constructor(public fbs: FirebaseService) { }
 
   ngOnInit(): void {
   }
 
-  cargarImagenes(){
-    this._fbs.cargarImagenesFirebase(this.archivos);
+  cargarImagenes(): void {
+    this.fbs.cargarImagenesFirebase(this.archivos);
   }
 
-  limpiarArchivos(){
+  limpiarArchivos(): void {
     this.archivos = [];
   }
 }

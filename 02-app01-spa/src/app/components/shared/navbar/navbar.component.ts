@@ -7,9 +7,9 @@ import { Router } from '@angular/router';
 })
 export class NavbarComponent{
 
-  constructor(private router:Router) { }
+  constructor(private router: Router) { }
 
-  buscarHeroe(heroe:string){
+  buscarHeroe(heroe: string): void{
     this.router.navigate(['/search', heroe]);
   }
 
